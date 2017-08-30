@@ -1,0 +1,15 @@
+FROM cmdln/crossbuild
+
+ENV OPENSSL_DIR /usr/local/
+
+ADD build_openssl.sh .
+
+RUN ./build_openssl.sh
+
+ENV PATH "/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
+        sh ./rustup.sh -y && \
+        rm rustup.sh
+
+ENTRYPOINT ["cargo", "build", "--release"]

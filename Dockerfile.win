@@ -1,0 +1,23 @@
+FROM cmdln/crossbuild
+
+ENV OPENSSL_DIR /usr/local/ssl
+# executing a crossbuild image would set these correctly but building from it
+# does not so have to set these in this image so that the OpenSSL build can
+# succeed
+ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:$OPENSSL_DIR/lib"
+# activate cross compilation
+ENV PKG_CONFIG_ALLOW_CROSS 1
+#ENV PKG_CONFIG_PATH /usr/local/ssl
+
+ADD build_openssl.sh .
+
+RUN ./build_openssl.sh win
+
+ENV PATH "/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
+        sh ./rustup.sh -y && \
+        rustup target add x86_64-pc-windows-gnu && \
+        rm rustup.sh
+
+ENTRYPOINT ["cargo", "build", "--target=x86_64-pc-windows-gnu", "--release"]
