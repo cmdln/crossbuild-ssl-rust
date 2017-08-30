@@ -31,3 +31,5 @@ $ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust-mac
 Resulting binaries are owned by root. Should be possible to use USER in the
 docker files to map the user in the container to something more reasonable.
 
+Need to have appropriate linkers in .cargo/config. May be a way to override
+with one built into the images.
