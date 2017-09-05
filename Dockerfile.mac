@@ -1,6 +1,10 @@
 FROM cmdln/crossbuild
 
+RUN apt update && \
+        apt upgrade -y
+
 ENV OPENSSL_DIR /usr/local
+ENV OPENSSL_STATIC=1
 # executing a crossbuild image would set these correctly but building from it
 # does not so have to set these in this image so that the OpenSSL build can
 # succeed

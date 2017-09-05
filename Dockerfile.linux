@@ -1,6 +1,10 @@
 FROM cmdln/crossbuild
 
+RUN apt update && \
+        apt upgrade -y
+
 ENV OPENSSL_DIR /usr/local/
+ENV OPENSSL_STATIC=1
 
 ADD build_openssl.sh .
 
