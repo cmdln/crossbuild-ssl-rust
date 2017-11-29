@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# based on https://gist.github.com/luser/a33e5070d1c55a7d2c46fe763a9d1543
+
+set -e
+
+# Point cargo at the cross-toolchain.
+cat > .cargo/config <<EOF
+[target.x86_64-apple-darwin]
+linker = "${PWD}/mac-cc"
+ar = "/usr/osxcross/bin/x86_64-apple-darwin15-ar"
+EOF
+
+# Build it.
+cmd="${1}"
+shift 1
+cargo "${cmd}" --target=x86_64-apple-darwin "$@"
