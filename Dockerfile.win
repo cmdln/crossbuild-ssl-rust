@@ -22,4 +22,4 @@ RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         rustup target add x86_64-pc-windows-gnu && \
         rm rustup.sh
 
-ENTRYPOINT ["cargo", "build", "--target=x86_64-pc-windows-gnu", "--release"]
+CMD ["cargo", "build", "--target=x86_64-pc-windows-gnu", "--release"]
