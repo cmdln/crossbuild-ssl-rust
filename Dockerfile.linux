@@ -16,4 +16,4 @@ RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         sh ./rustup.sh -y && \
         rm rustup.sh
 
-ENTRYPOINT ["cargo", "build", "--release"]
+CMD ["cargo", "build", "--release"]
