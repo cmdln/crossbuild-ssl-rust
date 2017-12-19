@@ -1,5 +1,8 @@
 FROM cmdln/crossbuild
 
+ARG RUST_VER
+ARG OPENSSL_VER
+
 RUN apt update && \
         apt upgrade -y
 
@@ -19,6 +22,7 @@ ENV PATH "/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sb
 
 RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         sh ./rustup.sh -y && \
+        rustup default $RUST_VER && \
         rustup target add x86_64-pc-windows-gnu && \
         rm rustup.sh
 

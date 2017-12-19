@@ -1,13 +1,27 @@
+rustver = 1.22.1
+ssl = 1.1.0g
+# 1.1.x doesn't cross-compile for Windows
+winssl = 1.0.2n
+
 all: mac linux win
 
 mac:
-	docker build -t cmdln/crossbuild-ssl-rust-mac -f Dockerfile.mac .
-	docker push cmdln/crossbuild-ssl-rust-mac
+	docker build --no-cache -t cmdln/crossbuild-ssl-rust-mac:$(ssl)-$(rustver) \
+		--build-arg RUST_VER=$(rustver) \
+		--build-arg OPENSSL_VER=$(ssl) \
+		-f Dockerfile.mac .
+	docker push cmdln/crossbuild-ssl-rust-mac:$(ssl)-$(rustver)
 
 linux:
-	docker build -t cmdln/crossbuild-ssl-rust-linux -f Dockerfile.linux .
-	docker push cmdln/crossbuild-ssl-rust-linux
+	docker build -t cmdln/crossbuild-ssl-rust-linux:$(ssl)-$(rustver) \
+		--build-arg RUST_VER=$(rustver) \
+		--build-arg OPENSSL_VER=$(ssl) \
+		-f Dockerfile.linux .
+	docker push cmdln/crossbuild-ssl-rust-linux:$(ssl)-$(rustver)
 
 win:
-	docker build -t cmdln/crossbuild-ssl-rust-win -f Dockerfile.win .
-	docker push cmdln/crossbuild-ssl-rust-win
+	docker build -t cmdln/crossbuild-ssl-rust-win:$(winssl)-$(rustver) \
+		--build-arg RUST_VER=$(rustver) \
+		--build-arg OPENSSL_VER=$(winssl) \
+		-f Dockerfile.win .
+	docker push cmdln/crossbuild-ssl-rust-win:$(winssl)-$(rustver)

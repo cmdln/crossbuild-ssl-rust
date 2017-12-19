@@ -9,17 +9,14 @@ os="${1:-linux}"
 
 case "${os}" in
     linux)
-        openssl_vers="1.1.0f"
         target="linux-x86_64"
         config_options=()
         ;;
     mac)
-        openssl_vers="1.1.0f"
         target="darwin64-x86_64-cc"
         config_options=(--cross-compile-prefix=/usr/x86_64-apple-darwin15/bin/ -fPIC)
         ;;
     win)
-        openssl_vers="1.0.2l"
         target="mingw64"
         config_options=(shared --cross-compile-prefix=/usr/x86_64-w64-mingw32/bin/)
         export MINGW="${MINGW:-x86_64-w64-mingw32}"
@@ -28,9 +25,9 @@ case "${os}" in
         echo "Unsupported OS: ${os}" && exit 1 ;;
 esac
 
-curl -O "https://www.openssl.org/source/openssl-${openssl_vers}.tar.gz"
-tar xf "openssl-${openssl_vers}.tar.gz"
-cd "openssl-${openssl_vers}" || exit 1
+curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz"
+tar xf "openssl-${OPENSSL_VER}.tar.gz"
+cd "openssl-${OPENSSL_VER}" || exit 1
 ./Configure ${target} "${config_options[@]}" || exit 2
 
 make || exit 3

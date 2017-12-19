@@ -1,5 +1,8 @@
 FROM cmdln/crossbuild
 
+ARG RUST_VER
+ARG OPENSSL_VER
+
 RUN apt update && \
         apt upgrade -y
 
@@ -39,6 +42,7 @@ ENV TOOLCHAIN_PREFIX "/usr/osxcross/bin/x86_64-apple-darwin15-"
 
 RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         sh ./rustup.sh -y && \
+        rustup default $RUST_VER && \
         rustup target add x86_64-apple-darwin && \
         rm rustup.sh
 
