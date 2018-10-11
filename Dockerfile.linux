@@ -3,8 +3,8 @@ FROM cmdln/crossbuild
 ARG RUST_VER
 ARG OPENSSL_VER
 
-RUN apt update && \
-        apt upgrade -y
+#RUN apt update && \
+#        apt upgrade -y
 
 ENV OPENSSL_DIR /usr/local/
 ENV OPENSSL_STATIC=1
