@@ -8,10 +8,12 @@ dynamically while the other two link statically. This means resulting Windows
 binaries will need the OpenSSL DLL to be installed as well.
 
 The base image is based on a fork of multiarch/crossbuild where the Mac OS
-tools are more update to date.
+tools are more up to date.
 
-Each image also contains the Rust tool chain and for Mac and Windows the
+Each image contains the Rust tool chain and for Mac and Windows the
 respective cross compile target.
+
+Each image has clippy-preview and cargo-outdated installed.
 
 To update/publish:
 
@@ -30,6 +32,3 @@ $ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust-mac
 
 Resulting binaries are owned by root. Should be possible to use USER in the
 docker files to map the user in the container to something more reasonable.
-
-Need to have appropriate linkers in .cargo/config. May be a way to override
-with one built into the images.
