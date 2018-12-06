@@ -47,6 +47,7 @@ RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         rm rustup.sh
 
 RUN rustup component add clippy-preview
-RUN mac-cargo install cargo-outdated
+# with 1.31.0, this fails
+#RUN mac-cargo install cargo-outdated
 
 CMD ["mac-cargo", "build", "--release"]
