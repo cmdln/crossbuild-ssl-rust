@@ -20,7 +20,8 @@ RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         rustup default $RUST_VER && \
         rm rustup.sh
 
-RUN rustup component add clippy-preview
-RUN cargo install cargo-outdated
+RUN rustup component add clippy
+RUN cargo install --git https://github.com/kbknapp/cargo-outdated
+
 
 CMD ["cargo", "build", "--release"]

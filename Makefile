@@ -1,4 +1,4 @@
-rustver = 1.31.1
+rustver = 1.32.0
 ssl = 1.1.0j
 # 1.1.x doesn't cross-compile for Windows
 winssl = 1.0.2q

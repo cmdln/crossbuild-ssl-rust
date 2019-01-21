@@ -26,7 +26,7 @@ RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         rustup target add x86_64-pc-windows-gnu && \
         rm rustup.sh
 
-RUN rustup component add clippy-preview
+RUN rustup component add clippy
 # cargo-outdated doesn't compile for Windows
 #RUN cargo install --target=x86_64-pc-windows-gnu cargo-outdated
 
