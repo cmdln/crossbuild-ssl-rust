@@ -1,7 +1,7 @@
-rustver = 1.32.0
-ssl = 1.1.0j
+rustver = 1.34.2
+ssl = 1.1.1b
 # 1.1.x doesn't cross-compile for Windows
-winssl = 1.0.2q
+winssl = 1.0.2r
 
 all: mac linux win
 
