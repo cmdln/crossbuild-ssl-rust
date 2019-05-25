@@ -5,36 +5,19 @@
 # see the start_crossbuild.sh script which is responsible for setting up such a
 # container
 
-os="${1:-linux}"
+ssl_ver="${1:-1.1.1b}"
 
-case "${os}" in
-    linux)
-        target="linux-x86_64"
-        config_options=()
-        ;;
-    mac)
-        target="darwin64-x86_64-cc"
-        config_options=(--cross-compile-prefix=/usr/x86_64-apple-darwin15/bin/ -fPIC)
-        ;;
-    win)
-        target="mingw64"
-        config_options=(shared --cross-compile-prefix=/usr/x86_64-w64-mingw32/bin/)
-        export MINGW="${MINGW:-x86_64-w64-mingw32}"
-        ;;
-    *)
-        echo "Unsupported OS: ${os}" && exit 1 ;;
-esac
+export OPENSSL_STATIC="1"
 
-curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz"
-tar xf "openssl-${OPENSSL_VER}.tar.gz"
-cd "openssl-${OPENSSL_VER}" || exit 1
-./Configure ${target} "${config_options[@]}" || exit 2
+curl -O "https://www.openssl.org/source/openssl-${ssl_ver}.tar.gz"
+tar xf "openssl-${ssl_ver}.tar.gz"
+cd "openssl-${ssl_ver}" || exit 1
+./Configure linux-x86_64 || exit 2
 
 make || exit 3
 make install || exit 4
-if [ "${os}" == "win" ]
-then
-    cp ./*eay* /usr/local/ssl/lib
-fi
+
 cd .. || exit 5
 rm -rf openssl*
+
+unset OPENSSL_STATIC
