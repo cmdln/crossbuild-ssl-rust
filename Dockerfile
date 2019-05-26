@@ -15,6 +15,7 @@ RUN ./build_openssl_win.sh
 
 ENV PATH "/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV OPENSSL_DIR "/usr/local"
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
 
 RUN curl https://sh.rustup.rs -sSf -o rustup.sh && \
         sh ./rustup.sh -y && \
