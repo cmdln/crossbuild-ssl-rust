@@ -5,5 +5,5 @@ all:
 		-t cmdln/crossbuild-ssl-rust:latest \
 		--build-arg RUST_VER=$(rustver) \
 		.
-	docker push cmdln/crossbuild-ssl-rust:$(rustver)
-	docker push cmdln/crossbuild-ssl-rust:latest
+	#docker push cmdln/crossbuild-ssl-rust:$(rustver)
+	#docker push cmdln/crossbuild-ssl-rust:latest

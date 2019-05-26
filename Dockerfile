@@ -1,6 +1,8 @@
 FROM cmdln/crossbuild
 
-ARG RUST_VER
+ARG RUST_VER=1.35.0
+ARG OPENSSL_VER=1.1.1b
+ARG WIN_OPENSSL_VER=1.0.2.r
 
 #RUN apt update && \
 #        apt upgrade -y
@@ -9,9 +11,9 @@ ADD build_openssl.sh .
 ADD build_openssl_mac.sh .
 ADD build_openssl_win.sh .
 
-RUN ./build_openssl.sh
-RUN ./build_openssl_mac.sh
-RUN ./build_openssl_win.sh
+RUN ./build_openssl.sh $OPENSSL_VER
+RUN ./build_openssl_mac.sh $OPENSSL_VER
+RUN ./build_openssl_win.sh $WIN_OPENSSL_VER
 
 ENV PATH "/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV OPENSSL_DIR "/usr/local"
