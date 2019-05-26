@@ -2,31 +2,40 @@
 For creating, maintaining docker images based on crossbuild, adding OpenSSL and
 the Rust toolchain.
 
-One image each for Windows, Mac OS and Linux. Each image contains a build of
-OpenSSL against which Rust sources can be linked. NOTE: The Windows image links
-dynamically while the other two link statically. This means resulting Windows
-binaries will need the OpenSSL DLL to be installed as well.
+One image that supports building for Windows, Mac OS and Linux targets.
+/usr/local contains builds of OpenSSL against which Rust sources can be linked.
+NOTE: The Windows image links dynamically while the other two link statically.
+This means resulting Windows binaries will need the OpenSSL DLL to be installed
+as well.
 
 The base image is based on a fork of multiarch/crossbuild where the Mac OS
 tools are more up to date.
 
-Each image contains the Rust tool chain and for Mac and Windows the
-respective cross compile target.
-
-Each image has clippy-preview and cargo-outdated installed.
+The image contains the Rust tool chain, some additional rooling (clippy,
+cargo-outdated, cargo-audit) and the respective cross compile targets for Mac
+and Windows.
 
 To update/publish:
 
 ```bash
-$ docker build -f Dockerfile.mac -t cmdln/crossbuild-ssl-rust-mac .
-$ docker push cmdln/crossbuild-ssl-rust-mac
+$ make
 ```
+
+Update `rust_ver` in `Makefile` for new releases of Rust. Update the build
+scripts for OpenSSL to pick up newer versions.
 
 To use:
 
 ```bash
-$ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust-mac
+$ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust lin-cargo build
+$ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust mac-cargo build
+$ docker run -v"$(pwd)"/workdir --rm -it cmdln/crossbuild-ssl-rust win-cargo build
 ```
+
+The scripts (`lin-cargo`, `mac-cargo`, `win-cargo`) set the environment for the
+given target, including the necessary variables to use the associated OpenSSL
+build. Do not use these scripts to run `cargo outdated` and `cargo audit`;
+those should work as is.
 
 ## Known issues
 
