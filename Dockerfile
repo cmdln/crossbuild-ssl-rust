@@ -1,8 +1,8 @@
 FROM cmdln/crossbuild
 
 ARG RUST_VER=1.35.0
-ARG OPENSSL_VER=1.1.1b
-ARG WIN_OPENSSL_VER=1.0.2.r
+ARG OPENSSL_VER=1.1.1c
+ARG WIN_OPENSSL_VER=1.0.2s
 
 #RUN apt update && \
 #        apt upgrade -y
